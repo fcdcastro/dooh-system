@@ -1,11 +1,15 @@
 :root {
-    --bg-color: #050505;
-    --card-bg: rgba(20, 20, 20, 0.7);
+    --bg-color: #020202;
     --accent-color: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.5);
     --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-secondary: #a0a0a0;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --card-bg: #121212;
+    --card-border: #222222;
     --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -26,9 +30,9 @@ body {
 
 /* Layout */
 .app-container {
-    display: block;
     height: 100vh;
-    padding: 0;
+    width: 100vw;
+    position: relative;
 }
 
 /* Main News Area */
@@ -39,12 +43,31 @@ body {
     background: #000;
 }
 
+.news-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
 .news-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.9; /* Deixando a imagem mais clara e visível */
-    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.8;
+    transition: var(--transition-smooth);
+}
+
+/* Ken Burns Effect */
+.ken-burns {
+    animation: kenBurns 20s infinite alternate linear;
+}
+
+@keyframes kenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.15) translate(-1%, -1%); }
 }
 
 .news-overlay {
@@ -52,148 +75,123 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 100px 60px 60px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.9)); /* Gradiente mais suave */
+    padding: 120px 80px 80px;
+    background: linear-gradient(to top, 
+        rgba(0,0,0,1) 0%, 
+        rgba(0,0,0,0.8) 40%, 
+        transparent 100%);
     z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .news-source {
-    display: inline-block;
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
     background: var(--accent-color);
     color: #000;
     font-weight: 800;
     text-transform: uppercase;
     font-size: 14px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    letter-spacing: 1.5px;
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); /* Brilho extra */
-}
-
-.icon-button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.icon-button:hover {
-    background: var(--accent-color);
-    color: black;
-    transform: scale(1.1);
-}
-
-.icon-button.speaking {
-    background: #ff4b2b;
-    border-color: #ff416c;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 75, 43, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0); }
+    border-radius: 6px;
+    letter-spacing: 2px;
+    box-shadow: 0 0 30px var(--accent-glow);
+    width: fit-content;
 }
 
 .news-title {
-    font-size: 64px;
+    font-size: 72px;
     font-weight: 800;
-    line-height: 1.05;
-    margin-bottom: 25px;
-    text-shadow: 0 4px 30px rgba(0,0,0,0.8); /* Sombra mais forte para ler sobre a imagem clara */
-    max-width: 95%;
+    line-height: 1.0;
+    text-shadow: 0 10px 40px rgba(0,0,0,1);
+    max-width: 90%;
+    letter-spacing: -2px;
 }
 
 .news-summary {
-    font-size: 24px;
-    color: #ffffff; /* Branco puro para maior clareza */
-    max-width: 1100px;
+    font-size: 26px;
+    color: #eee;
+    max-width: 1000px;
     line-height: 1.4;
-    text-shadow: 0 2px 15px rgba(0,0,0,0.8);
+    font-weight: 400;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 
-/* Floating Widgets Container */
+/* Floating Widgets */
 .top-widgets {
     position: absolute;
-    top: 25px;
-    left: 25px;
-    right: 25px;
+    top: 40px;
+    left: 40px;
+    right: 40px;
     display: flex;
-    justify-content: center; /* Centralizado para melhor organização */
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     z-index: 10;
-    gap: 12px;
 }
 
-.glass-widget {
-    background: rgba(255, 255, 255, 0.85); /* Fundo mais opaco para contraste */
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 1); /* Borda sólida branca */
-    padding: 12px 24px;
-    border-radius: 50px; /* Estilo pílula, mais moderno */
+.widgets-group {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    color: #000; /* Texto PRETO para máximo contraste */
-}
-
-.currency-bar {
-    gap: 20px;
-}
-
-.currency-mini {
-    font-weight: 800;
-    font-size: 16px;
-    color: #000;
-}
-
-.currency-mini span {
-    color: #0084ff; /* Azul vibrante para contraste no fundo claro */
-    margin-left: 4px;
-}
-
-.clock-widget {
-    flex-direction: row;
     gap: 15px;
 }
 
-#clock {
-    font-size: 24px;
-    font-weight: 800;
+.glass-widget {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    padding: 14px 28px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     color: #000;
-    border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.currency-bar {
+    gap: 25px;
+}
+
+.currency-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+}
+
+.currency-item span {
+    color: #0056b3;
+    font-size: 1.1em;
+}
+
+.clock-widget {
+    padding: 14px 30px;
+}
+
+#clock {
+    font-size: 28px;
+    font-weight: 800;
+    border-right: 2px solid rgba(0,0,0,0.1);
     padding-right: 15px;
+    letter-spacing: 1px;
 }
 
 #date {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
-    color: #444;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
-.weather-mini {
+.weather-widget {
     font-weight: 700;
-    color: #000;
 }
 
-/* Animations */
-.fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+#weather-temp {
+    font-size: 24px;
+    font-weight: 800;
 }
 
 /* Progress Bar */
@@ -201,102 +199,204 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 8px;
-    background: var(--accent-color);
-    width: 0%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    width: 100%;
     z-index: 20;
 }
 
-/* Admin Styles (Responsividade já inclusa) */
+.progress-fill {
+    height: 100%;
+    background: var(--accent-color);
+    width: 0%;
+    box-shadow: 0 0 15px var(--accent-color);
+    transition: width 0.1s linear;
+}
+
+/* Buttons & UI Elements */
+.icon-button {
+    background: #fff;
+    border: none;
+    color: #000;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.icon-button:hover {
+    transform: scale(1.1);
+    background: var(--accent-color);
+}
+
+.icon-button.speaking {
+    background: #ff3333;
+    color: #fff;
+    animation: pulseGlow 1.5s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 51, 51, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+}
+
+/* Admin Styles */
 .admin-body {
-    background-color: #000;
-    padding: 40px;
-    max-width: 900px;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    padding: 60px 20px;
+    max-width: 1000px;
     margin: 0 auto;
     overflow-y: auto;
+    height: auto;
+}
+
+.admin-header {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .admin-card {
-    background: #111;
-    padding: 30px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    border: 1px solid #222;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 24px;
+    margin-bottom: 30px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.admin-card h2 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
-label {
+.form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 14px;
 }
 
-input, select {
+.form-control {
     width: 100%;
-    padding: 12px;
+    padding: 16px;
     background: #1a1a1a;
     border: 1px solid #333;
     color: white;
-    border-radius: 8px;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: var(--transition-smooth);
 }
 
-button {
-    padding: 12px 24px;
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.1);
+}
+
+.btn-primary {
+    padding: 16px 32px;
     background: var(--accent-color);
+    color: #000;
     border: none;
-    border-radius: 8px;
-    font-weight: 700;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 16px;
     cursor: pointer;
-    transition: filter 0.2s;
+    transition: var(--transition-smooth);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-button:hover {
-    filter: brightness(1.2);
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--accent-glow);
 }
 
-/* Responsive Adjustments for Mobile */
-@media (max-width: 768px) {
-    .top-widgets {
-        top: 10px;
-        left: 10px;
-        right: 10px;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .glass-widget {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 6px 15px;
-        border-radius: 30px;
-        width: 100%;
-        justify-content: center;
-    }
-
-    .currency-bar {
-        gap: 15px;
-    }
-
-    #clock {
-        font-size: 16px;
-        padding-right: 10px;
-    }
-
-    #date {
-        font-size: 10px;
-    }
-
-    .news-title {
-        font-size: 28px;
-    }
-
-    .news-summary {
-        font-size: 16px;
-    }
-
-    .news-overlay {
-        padding: 20px 15px 40px;
-    }
+.btn-secondary {
+    padding: 16px 32px;
+    background: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition-smooth);
 }
+
+.btn-secondary:hover {
+    background: rgba(0, 242, 255, 0.05);
+}
+
+/* Custom Source Add Form */
+.source-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.source-item {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #333;
+}
+
+.source-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--accent-color);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+    .news-title { font-size: 48px; }
+    .news-overlay { padding: 60px 40px 40px; }
+    .top-widgets { top: 20px; left: 20px; right: 20px; }
+}
+
+@media (max-width: 600px) {
+    .top-widgets { flex-direction: column; gap: 10px; align-items: center; }
+    .widgets-group { width: 100%; justify-content: center; }
+    .news-title { font-size: 32px; }
+    .news-summary { font-size: 18px; }
+    .news-overlay { padding: 40px 20px 30px; }
+    .glass-widget { padding: 10px 20px; font-size: 14px; width: 100%; justify-content: center; }
+    .clock-widget { width: auto; }
+}
+
