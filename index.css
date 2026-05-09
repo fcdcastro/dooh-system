@@ -125,81 +125,105 @@ body {
 /* Floating Widgets - Ajuste de espaçamento */
 .top-widgets {
     position: absolute;
-    top: 30px;
-    left: 30px;
-    right: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.7));
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    z-index: 20; /* Garantir que fique acima de tudo */
+    align-items: center;
+    padding: 0 40px;
+    z-index: 100;
 }
-
 
 .widgets-group {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 40px;
 }
 
 .glass-widget {
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    padding: 12px 24px;
-    border-radius: 100px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: none;
     color: #fff;
 }
 
 .currency-bar {
-    gap: 25px;
+    gap: 30px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    padding-right: 30px;
 }
 
 .currency-item {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 800;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
 }
 
 .currency-item span {
-    color: var(--accent-color);
-    font-size: 1.1em;
-}
-
-.clock-widget {
-    padding: 12px 30px;
-}
-
-#clock {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 800;
     color: #fff;
-    border-right: 2px solid rgba(255,255,255,0.2);
-    padding-right: 15px;
+}
+
+.currency-item label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-#date {
-    font-size: 13px;
-    font-weight: 600;
-    color: #fff;
-    text-transform: uppercase;
-    opacity: 0.8;
-}
-
 .weather-widget {
-    font-weight: 700;
-    color: #fff;
+    gap: 12px;
 }
 
 #weather-temp {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
 }
+
+#weather-city {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.clock-widget {
+    gap: 25px;
+}
+
+#clock {
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff;
+    border-right: none;
+    padding-right: 0;
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
+}
+
+#date {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.2;
+}
+
 
 /* Progress Bar */
 .progress-container {
