@@ -135,15 +135,16 @@ body {
 }
 
 .glass-widget {
-    background: rgba(40, 40, 40, 0.7); /* Fundo um pouco mais claro */
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais visível */
+    background: rgba(255, 255, 255, 0.15); /* Branco ultra-transparente */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca mais nítida */
     padding: 18px 30px;
     border-radius: 18px;
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    color: white;
 }
 
 .currency-bar {
@@ -261,12 +262,12 @@ button:hover {
     }
 
     .glass-widget {
-        background: rgba(0, 0, 0, 0.4); /* Muito mais transparente */
-        backdrop-filter: blur(5px); /* Desfoque sutil */
+        background: rgba(255, 255, 255, 0.2); /* Mais claro no celular */
+        backdrop-filter: blur(8px);
         padding: 6px 12px;
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: none; /* Remove sombras que pesam o visual */
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: none;
     }
 
     .currency-bar {

@@ -59,13 +59,31 @@ function toggleSpeech() {
 
     const textToRead = `${newsTitle.textContent}. ${newsSummary.textContent}. Fonte: ${newsSource.textContent}`;
     currentUtterance = new SpeechSynthesisUtterance(textToRead);
-    currentUtterance.lang = 'pt-BR';
     
-    currentUtterance.onstart = () => btnSpeak.classList.add('speaking');
+    // Procura uma voz em português do Brasil
+    const voices = synth.getVoices();
+    const ptVoice = voices.find(v => v.lang === 'pt-BR' || v.lang === 'pt_BR');
+    if (ptVoice) currentUtterance.voice = ptVoice;
+    
+    currentUtterance.lang = 'pt-BR';
+    currentUtterance.rate = 1.0; // Velocidade normal
+    currentUtterance.pitch = 1.0;
+    
+    currentUtterance.onstart = () => {
+        console.log('Iniciando narração...');
+        btnSpeak.classList.add('speaking');
+    };
     currentUtterance.onend = () => btnSpeak.classList.remove('speaking');
-    currentUtterance.onerror = () => btnSpeak.classList.remove('speaking');
+    currentUtterance.onerror = (e) => {
+        console.error('Erro na narração:', e);
+        btnSpeak.classList.remove('speaking');
+    };
 
-    synth.speak(currentUtterance);
+    // Necessário em alguns navegadores para "acordar" o sintetizador
+    synth.cancel(); 
+    setTimeout(() => {
+        synth.speak(currentUtterance);
+    }, 50);
 }
 
 function stopSpeech() {
