@@ -405,29 +405,86 @@ body {
 }
 
 /* Animations */
-.fade-in {
-    animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Daily Briefing */
+.briefing-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}
+
+.briefing-content {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.briefing-tag {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.briefing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.briefing-item {
+    font-size: clamp(20px, 2.5vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    padding-left: 30px;
+    border-left: 4px solid var(--accent-color);
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideInBriefing 0.8s ease forwards;
+}
+
+@keyframes slideInBriefing {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.briefing-item:nth-child(1) { animation-delay: 0.2s; }
+.briefing-item:nth-child(2) { animation-delay: 0.5s; }
+.briefing-item:nth-child(3) { animation-delay: 0.8s; }
+.briefing-item:nth-child(4) { animation-delay: 1.1s; }
+.briefing-item:nth-child(5) { animation-delay: 1.4s; }
+
 /* Mobile Adjustments */
 @media (max-width: 900px) {
     .news-title { font-size: 48px; }
     .news-overlay { padding: 60px 40px 40px; }
-    .top-widgets { top: 20px; left: 20px; right: 20px; }
+    .top-widgets { height: 60px; padding: 0 20px; }
+    .briefing-overlay { padding: 30px; }
+    .briefing-item { font-size: 22px; }
 }
 
 @media (max-width: 600px) {
-    .top-widgets { flex-direction: column; gap: 10px; align-items: center; }
-    .widgets-group { width: 100%; justify-content: center; }
+    .top-widgets { height: auto; flex-direction: column; padding: 10px; gap: 5px; }
+    .widgets-group { gap: 15px; }
     .news-title { font-size: 32px; }
     .news-summary { font-size: 18px; }
     .news-overlay { padding: 40px 20px 30px; }
-    .glass-widget { padding: 10px 20px; font-size: 14px; width: 100%; justify-content: center; }
-    .clock-widget { width: auto; }
+    #clock { font-size: 24px; }
+    #date { font-size: 10px; }
+    .currency-item span { font-size: 16px; }
 }
 

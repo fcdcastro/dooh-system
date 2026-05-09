@@ -34,10 +34,8 @@ async function init() {
     updateClock();
     setInterval(updateClock, 1000);
     
-    // Safety timeout for loading screen (max 6 seconds)
     const loadTimeout = setTimeout(hideLoading, 6000);
 
-    // Data fetching (Parallel)
     try {
         await Promise.all([
             fetchCurrencies(),
@@ -46,6 +44,11 @@ async function init() {
         ]);
         clearTimeout(loadTimeout);
         hideLoading();
+        
+        // Iniciar Briefing se houver notícias
+        if (newsItems.length > 0) {
+            await showBriefing();
+        }
     } catch (e) {
         console.error('Erro no carregamento inicial:', e);
         hideLoading();
@@ -60,6 +63,44 @@ async function init() {
     if (speechSynthesis.onvoiceschanged !== undefined) {
         speechSynthesis.onvoiceschanged = loadVoices;
     }
+}
+
+async function showBriefing() {
+    const briefingOverlay = document.getElementById('briefing-overlay');
+    const briefingList = document.getElementById('briefing-list');
+    if (!briefingOverlay || !briefingList) return;
+
+    // Pegar as 5 notícias mais recentes
+    const highlights = newsItems.slice(0, 5);
+    briefingList.innerHTML = '';
+    
+    highlights.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'briefing-item';
+        div.textContent = item.title;
+        briefingList.appendChild(div);
+    });
+
+    briefingOverlay.style.display = 'flex';
+    briefingOverlay.style.opacity = '1';
+
+    // Locução de Boas-vindas
+    const welcomeText = "Bom dia! Iniciando o sistema. Aqui estão os destaques das últimas notícias.";
+    const utterance = new SpeechSynthesisUtterance(welcomeText);
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1.0;
+    window.speechSynthesis.speak(utterance);
+
+    // Aguardar 12 segundos e fechar
+    return new Promise(resolve => {
+        setTimeout(() => {
+            briefingOverlay.style.opacity = '0';
+            setTimeout(() => {
+                briefingOverlay.style.display = 'none';
+                resolve();
+            }, 800);
+        }, 12000);
+    });
 }
 
 function hideLoading() {
