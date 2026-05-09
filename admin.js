@@ -7,7 +7,18 @@ const DEFAULT_SOURCES = [
     { id: 'bbc-brasil', name: 'BBC Brasil', url: 'https://feeds.bbci.co.uk/portuguese/rss.xml' },
     { id: 'valor', name: 'Valor Econômico', url: 'https://valor.globo.com/rss/valor/' },
     { id: 'exame', name: 'Exame - Negócios', url: 'https://exame.com/feed/' },
-    { id: 'tecmundo', name: 'TecMundo', url: 'https://www.tecmundo.com.br/rss' }
+    { id: 'tecmundo', name: 'TecMundo', url: 'https://www.tecmundo.com.br/rss' },
+    { id: 'g1-mundo', name: 'G1 - Mundo', url: 'https://g1.globo.com/rss/g1/mundo/' },
+    { id: 'folha-mundo', name: 'Folha de S.Paulo - Mundo', url: 'https://feeds.folha.uol.com.br/mundo/rss091.xml' },
+    { id: 'estadao', name: 'Estadão - Últimas', url: 'https://www.estadao.com.br/arc/outboundfeeds/rss/category/ultimas-noticias/' },
+    { id: 'reuters-br', name: 'Reuters Brasil', url: 'https://br.reuters.com/rssFeed/topNews' },
+    { id: 'el-pais', name: 'El País Brasil', url: 'https://brasil.elpais.com/rss/brasil/portada.xml' },
+    { id: 'meio-bit', name: 'Meio Bit', url: 'https://meiobit.com/feed/' },
+    { id: 'gzh', name: 'GZH', url: 'https://gauchazh.clicrbs.com.br/rss/ultimas-noticias/' },
+    { id: 'oglobo', name: 'O Globo - Brasil', url: 'https://oglobo.globo.com/rss/brasil/' },
+    { id: 'euronews', name: 'Euronews (PT)', url: 'https://pt.euronews.com/rss?level=vertical&name=news' },
+    { id: 'jornal-negocios', name: 'Jornal de Negócios (PT)', url: 'https://www.jornaldenegocios.pt/rss' },
+    { id: 'publico', name: 'Público (PT)', url: 'https://www.publico.pt/feeds/ultimas' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -126,4 +137,3 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html';
     });
 });
-

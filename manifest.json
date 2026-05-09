@@ -1,10 +1,11 @@
 {
-  "name": "DOOH News Brasil",
-  "short_name": "DOOH News",
-  "description": "Sistema de notícias premium para DOOH",
+  "name": "DOOH News Dashboard - Premium",
+  "short_name": "DOOH Dashboard",
+  "description": "Sistema Digital Out Of Home de notícias e informações em tempo real.",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#050505",
+  "orientation": "landscape",
+  "background_color": "#020202",
   "theme_color": "#00f2ff",
   "icons": [
     {
@@ -13,5 +14,15 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "categories": ["news", "business"],
+  "screenshots": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
   ]
 }
+
