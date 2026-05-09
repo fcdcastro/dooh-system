@@ -82,7 +82,7 @@ function toggleSpeech() {
     if (newsItems.length === 0) return;
 
     const item = newsItems[currentIndex];
-    const text = `Manchete: ${item.title}`; 
+    const text = item.title; 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'pt-BR';
     utterance.rate = 1.0;
