@@ -131,7 +131,7 @@ async function showBriefing() {
         };
     }
 
-    // Aguardar 25 segundos para dar tempo de ler as 5 manchetes
+    // Aguardar 45 segundos para dar tempo de ler as 5 manchetes com folga
     return new Promise(resolve => {
         setTimeout(() => {
             briefingOverlay.style.opacity = '0';
@@ -139,7 +139,7 @@ async function showBriefing() {
                 briefingOverlay.style.display = 'none';
                 resolve();
             }, 800);
-        }, 25000);
+        }, 45000);
     });
 }
 
