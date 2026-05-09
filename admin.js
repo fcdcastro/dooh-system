@@ -13,7 +13,8 @@ const DEFAULT_SOURCES = [
     { id: 'tecmundo', name: 'TecMundo', url: 'https://www.tecmundo.com.br/rss' },
     { id: 'meio-bit', name: 'Meio Bit', url: 'https://meiobit.com/feed/' },
     { id: 'gzh', name: 'GZH', url: 'https://gauchazh.clicrbs.com.br/rss/ultimas-noticias/' },
-    { id: 'oglobo', name: 'O Globo - Brasil', url: 'https://oglobo.globo.com/rss/brasil/' }
+    { id: 'oglobo', name: 'O Globo - Brasil', url: 'https://oglobo.globo.com/rss/brasil/' },
+    { id: 'euronews', name: 'Euronews (PT)', url: 'https://pt.euronews.com/rss?level=vertical&name=news' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
