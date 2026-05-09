@@ -1,3 +1,6 @@
+// --- CONFIGURAÇÃO ---
+const HARDCODED_WEATHER_KEY = '70ade7bd675907645ae4a62fe903f525'; // COLE SUA CHAVE AQUI ENTRE AS ASPAS
+
 // Configuration State
 let settings = JSON.parse(localStorage.getItem('dooh_settings')) || {
     interval: 15,
@@ -9,6 +12,11 @@ let settings = JSON.parse(localStorage.getItem('dooh_settings')) || {
         { id: 'cnn-br', name: 'CNN Brasil', url: 'https://www.cnnbrasil.com.br/feed/' }
     ]
 };
+
+// Prioritize hardcoded key if present
+if (HARDCODED_WEATHER_KEY) {
+    settings.weatherKey = HARDCODED_WEATHER_KEY;
+}
 
 let newsItems = [];
 let currentIndex = 0;
