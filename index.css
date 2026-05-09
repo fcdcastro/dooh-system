@@ -219,3 +219,55 @@ button {
 button:hover {
     filter: brightness(1.2);
 }
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .news-display {
+        height: 60vh;
+        border-radius: 16px;
+    }
+
+    .news-title {
+        font-size: 28px;
+    }
+
+    .news-summary {
+        font-size: 16px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .sidebar {
+        flex-direction: column;
+    }
+
+    .sidebar-card {
+        padding: 15px;
+    }
+
+    .weather-temp {
+        font-size: 40px;
+    }
+
+    .news-overlay {
+        padding: 20px;
+    }
+
+    /* Admin Responsiveness */
+    .admin-body {
+        padding: 15px;
+    }
+
+    #sources-list {
+        grid-template-columns: 1fr !important;
+    }
+}
