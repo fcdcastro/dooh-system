@@ -91,7 +91,7 @@ async function showBriefing() {
     utterance.rate = 1.0;
     window.speechSynthesis.speak(utterance);
 
-    // Aguardar 12 segundos e fechar
+    // Aguardar 20 segundos e fechar
     return new Promise(resolve => {
         setTimeout(() => {
             briefingOverlay.style.opacity = '0';
@@ -99,7 +99,7 @@ async function showBriefing() {
                 briefingOverlay.style.display = 'none';
                 resolve();
             }, 800);
-        }, 12000);
+        }, 20000);
     });
 }
 
