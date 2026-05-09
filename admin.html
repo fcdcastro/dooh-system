@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body class="admin-body">
     <header class="admin-header">
         <h1>Painel de Controle DOOH</h1>
@@ -29,14 +31,16 @@
         </div>
         <div class="form-group">
             <label>OpenWeather API Key (Opcional)</label>
-            <input type="text" id="weather-api-key" class="form-control" placeholder="Insira sua chave API para tempo real">
+            <input type="text" id="weather-api-key" class="form-control"
+                placeholder="Insira sua chave API para tempo real">
         </div>
     </div>
 
     <div class="admin-card">
         <h2>Fontes de Notícias</h2>
-        <p style="margin-bottom: 20px; color: var(--text-secondary);">Gerencie as fontes RSS que alimentam o seu dashboard.</p>
-        
+        <p style="margin-bottom: 20px; color: var(--text-secondary);">Gerencie as fontes RSS que alimentam o seu
+            dashboard.</p>
+
         <!-- Add Custom Source -->
         <div class="source-input-group">
             <input type="text" id="custom-source-name" class="form-control" placeholder="Nome da Fonte (ex: BBC)">
@@ -51,14 +55,17 @@
 
     <div class="admin-card">
         <h2>Acessibilidade e Áudio</h2>
-        <p style="margin-bottom: 20px; color: var(--text-secondary);">Teste a síntese de voz para garantir que as notícias sejam lidas corretamente.</p>
+        <p style="margin-bottom: 20px; color: var(--text-secondary);">Teste a síntese de voz para garantir que as
+            notícias sejam lidas corretamente.</p>
         <button id="test-tts" class="btn-secondary">Testar Voz do Sistema</button>
     </div>
 
     <div style="margin-top: 40px; text-align: center;">
-        <button id="save-settings" class="btn-primary" style="width: 100%; max-width: 400px;">Salvar Todas as Configurações</button>
+        <button id="save-settings" class="btn-primary" style="width: 100%; max-width: 400px;">Salvar Todas as
+            Configurações</button>
     </div>
 
     <script src="admin.js"></script>
 </body>
+
 </html>

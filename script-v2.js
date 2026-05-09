@@ -116,14 +116,20 @@ async function showBriefing() {
     briefingOverlay.style.display = 'flex';
     briefingOverlay.style.opacity = '1';
 
-    // Locução de todas as notícias
-    try {
-        const utterance = new SpeechSynthesisUtterance(newsText);
-        utterance.lang = 'pt-BR';
-        utterance.voice = voices[0];
-        utterance.rate = 1.0;
-        window.speechSynthesis.speak(utterance);
-    } catch(e) {}
+    // Locução de todas as notícias (Agora via clique para bypassar autoplay)
+    const btnBriefingSpeak = document.getElementById('btn-briefing-speak');
+    if (btnBriefingSpeak) {
+        btnBriefingSpeak.onclick = () => {
+            try {
+                const utterance = new SpeechSynthesisUtterance(newsText);
+                utterance.lang = 'pt-BR';
+                utterance.voice = voices[0];
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+                btnBriefingSpeak.style.display = 'none'; // Esconde após clicar
+            } catch(e) {}
+        };
+    }
 
     // Aguardar 25 segundos para dar tempo de ler as 5 manchetes
     return new Promise(resolve => {
