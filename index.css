@@ -70,66 +70,72 @@ body {
     100% { transform: scale(1.15) translate(-1%, -1%); }
 }
 
+/* ... (mantendo o restante igual até .news-overlay) */
+
 .news-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 120px 80px 80px;
+    padding: 60px 80px 80px; /* Reduzi o padding superior */
     background: linear-gradient(to top, 
         rgba(0,0,0,1) 0%, 
-        rgba(0,0,0,0.8) 40%, 
+        rgba(0,0,0,0.9) 50%, 
         transparent 100%);
     z-index: 5;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    max-height: 65vh; /* Limite para não bater nos widgets do topo */
+    justify-content: flex-end;
 }
 
 .news-source {
     display: inline-flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: var(--accent-color);
     color: #000;
     font-weight: 800;
     text-transform: uppercase;
-    font-size: 14px;
-    border-radius: 6px;
-    letter-spacing: 2px;
-    box-shadow: 0 0 30px var(--accent-glow);
+    font-size: 13px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 0 25px var(--accent-glow);
     width: fit-content;
 }
 
 .news-title {
-    font-size: 72px;
+    font-size: clamp(32px, 5vw, 60px); /* Fonte responsiva: min 32px, ideal 5vw, max 60px */
     font-weight: 800;
-    line-height: 1.0;
-    text-shadow: 0 10px 40px rgba(0,0,0,1);
-    max-width: 90%;
-    letter-spacing: -2px;
+    line-height: 1.1;
+    text-shadow: 0 5px 30px rgba(0,0,0,1);
+    max-width: 95%;
+    letter-spacing: -1px;
+    margin: 0;
 }
 
 .news-summary {
-    font-size: 26px;
-    color: #eee;
-    max-width: 1000px;
+    font-size: clamp(16px, 2vw, 22px); /* Sumário também responsivo */
+    color: #ddd;
+    max-width: 900px;
     line-height: 1.4;
     font-weight: 400;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    text-shadow: 0 2px 15px rgba(0,0,0,0.9);
 }
 
-/* Floating Widgets */
+/* Floating Widgets - Ajuste de espaçamento */
 .top-widgets {
     position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
+    top: 30px;
+    left: 30px;
+    right: 30px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    z-index: 10;
+    z-index: 20; /* Garantir que fique acima de tudo */
 }
+
 
 .widgets-group {
     display: flex;
