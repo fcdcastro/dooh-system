@@ -14,43 +14,37 @@
         <!-- Main News Content -->
         <main class="news-display" id="news-container">
             <img src="" alt="" class="news-image" id="news-img">
+            
+            <!-- Floating Widgets -->
+            <div class="top-widgets">
+                <div class="glass-widget currency-bar">
+                    <div class="currency-mini">USD <span id="usd-rate">--</span></div>
+                    <div class="currency-mini">EUR <span id="eur-rate">--</span></div>
+                </div>
+                
+                <div class="glass-widget weather-mini">
+                    <img id="weather-icon" src="" alt="" style="width: 50px; display: none;">
+                    <div>
+                        <div id="weather-temp" style="font-weight: 800;">--°C</div>
+                        <div id="weather-city" style="font-size: 10px; opacity: 0.7;">Detectando...</div>
+                    </div>
+                </div>
+
+                <div class="glass-widget clock-widget">
+                    <div id="clock">00:00:00</div>
+                    <div id="date" style="font-size: 10px; opacity: 0.7;">--/--/----</div>
+                </div>
+            </div>
+
             <div class="news-overlay">
                 <span class="news-source" id="news-source">Carregando...</span>
                 <h1 class="news-title" id="news-title">Buscando as últimas notícias...</h1>
                 <p class="news-summary" id="news-summary">Aguarde um momento enquanto atualizamos as informações.</p>
+                <div id="weather-desc" style="font-size: 14px; margin-top: 10px; color: var(--accent-color);"></div>
             </div>
+            
             <div class="progress-container" id="progress-bar"></div>
         </main>
-
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <!-- Weather Widget -->
-            <div class="sidebar-card weather-widget">
-                <span class="weather-city" id="weather-city">São Paulo</span>
-                <img id="weather-icon" src="" alt="" style="width: 100px; height: 100px; filter: drop-shadow(0 0 10px var(--accent-color)); display: none;">
-                <div class="weather-temp" id="weather-temp">--°</div>
-                <div id="weather-desc">Céu limpo</div>
-            </div>
-
-            <!-- Currency Widget -->
-            <div class="sidebar-card currency-widget">
-                <h3>Câmbio em Tempo Real</h3>
-                <div class="currency-item">
-                    <span class="currency-label">USD - Dólar</span>
-                    <span class="currency-value" id="usd-rate">R$ 0,00</span>
-                </div>
-                <div class="currency-item">
-                    <span class="currency-label">EUR - Euro</span>
-                    <span class="currency-value" id="eur-rate">R$ 0,00</span>
-                </div>
-            </div>
-
-            <!-- Time Widget -->
-            <div class="sidebar-card" style="text-align: center;">
-                <div id="clock" style="font-size: 32px; font-weight: 700;">00:00:00</div>
-                <div id="date" style="color: var(--text-secondary); font-size: 14px;">--/--/----</div>
-            </div>
-        </aside>
     </div>
 
     <script src="script.js"></script>
