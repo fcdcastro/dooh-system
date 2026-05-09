@@ -71,6 +71,39 @@ body {
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); /* Brilho extra */
 }
 
+.icon-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.icon-button:hover {
+    background: var(--accent-color);
+    color: black;
+    transform: scale(1.1);
+}
+
+.icon-button.speaking {
+    background: #ff4b2b;
+    border-color: #ff416c;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 75, 43, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0); }
+}
+
 .news-title {
     font-size: 64px;
     font-weight: 800;

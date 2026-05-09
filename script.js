@@ -28,6 +28,10 @@ const newsSource = document.getElementById('news-source');
 const newsTitle = document.getElementById('news-title');
 const newsSummary = document.getElementById('news-summary');
 const progressBar = document.getElementById('progress-bar');
+const btnSpeak = document.getElementById('btn-speak');
+
+let synth = window.speechSynthesis;
+let currentUtterance = null;
 
 async function init() {
     updateClock();
@@ -41,6 +45,34 @@ async function init() {
 
     await refreshNews();
     setInterval(refreshNews, 1800000); // 30 min
+
+    // Audio Button Logic
+    btnSpeak.addEventListener('click', toggleSpeech);
+}
+
+function toggleSpeech() {
+    if (synth.speaking) {
+        synth.cancel();
+        btnSpeak.classList.remove('speaking');
+        return;
+    }
+
+    const textToRead = `${newsTitle.textContent}. ${newsSummary.textContent}. Fonte: ${newsSource.textContent}`;
+    currentUtterance = new SpeechSynthesisUtterance(textToRead);
+    currentUtterance.lang = 'pt-BR';
+    
+    currentUtterance.onstart = () => btnSpeak.classList.add('speaking');
+    currentUtterance.onend = () => btnSpeak.classList.remove('speaking');
+    currentUtterance.onerror = () => btnSpeak.classList.remove('speaking');
+
+    synth.speak(currentUtterance);
+}
+
+function stopSpeech() {
+    if (synth.speaking) {
+        synth.cancel();
+        btnSpeak.classList.remove('speaking');
+    }
 }
 
 // --- Data Fetching ---
@@ -159,6 +191,7 @@ function startCycling() {
         progressBar.style.width = `${progress}%`;
         
         if (timeLeft <= 0) {
+            stopSpeech(); // Para a fala se a notícia mudar
             currentIndex = (currentIndex + 1) % newsItems.length;
             displayNews(currentIndex);
             timeLeft = settings.interval;
