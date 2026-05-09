@@ -57,33 +57,36 @@ function toggleSpeech() {
         return;
     }
 
+    // Tenta carregar as vozes primeiro
+    let voices = synth.getVoices();
+    
     const textToRead = `${newsTitle.textContent}. ${newsSummary.textContent}. Fonte: ${newsSource.textContent}`;
-    currentUtterance = new SpeechSynthesisUtterance(textToRead);
+    const utterance = new SpeechSynthesisUtterance(textToRead);
     
-    // Procura uma voz em português do Brasil
-    const voices = synth.getVoices();
-    const ptVoice = voices.find(v => v.lang === 'pt-BR' || v.lang === 'pt_BR');
-    if (ptVoice) currentUtterance.voice = ptVoice;
+    // Seleciona a melhor voz em português disponível
+    const ptVoice = voices.find(v => v.lang.includes('pt-BR')) || 
+                    voices.find(v => v.lang.includes('pt')) || 
+                    voices[0];
+                    
+    if (ptVoice) utterance.voice = ptVoice;
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1.0;
     
-    currentUtterance.lang = 'pt-BR';
-    currentUtterance.rate = 1.0; // Velocidade normal
-    currentUtterance.pitch = 1.0;
-    
-    currentUtterance.onstart = () => {
-        console.log('Iniciando narração...');
-        btnSpeak.classList.add('speaking');
-    };
-    currentUtterance.onend = () => btnSpeak.classList.remove('speaking');
-    currentUtterance.onerror = (e) => {
-        console.error('Erro na narração:', e);
-        btnSpeak.classList.remove('speaking');
-    };
+    utterance.onstart = () => btnSpeak.classList.add('speaking');
+    utterance.onend = () => btnSpeak.classList.remove('speaking');
+    utterance.onerror = () => btnSpeak.classList.remove('speaking');
 
-    // Necessário em alguns navegadores para "acordar" o sintetizador
-    synth.cancel(); 
+    synth.cancel(); // Garante que não haja nada na fila
+    
+    // Pequeno delay para alguns navegadores processarem o cancel()
     setTimeout(() => {
-        synth.speak(currentUtterance);
-    }, 50);
+        synth.speak(utterance);
+    }, 100);
+}
+
+// Escuta quando as vozes são carregadas (especialmente para Chrome/Android)
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = () => synth.getVoices();
 }
 
 function stopSpeech() {

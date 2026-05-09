@@ -124,58 +124,66 @@ body {
 /* Floating Widgets Container */
 .top-widgets {
     position: absolute;
-    top: 30px;
-    left: 30px;
-    right: 30px;
+    top: 25px;
+    left: 25px;
+    right: 25px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center; /* Centralizado para melhor organização */
+    align-items: center;
     z-index: 10;
-    gap: 15px;
+    gap: 12px;
 }
 
 .glass-widget {
-    background: rgba(255, 255, 255, 0.15); /* Branco ultra-transparente */
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca mais nítida */
-    padding: 18px 30px;
-    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.85); /* Fundo mais opaco para contraste */
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 1); /* Borda sólida branca */
+    padding: 12px 24px;
+    border-radius: 50px; /* Estilo pílula, mais moderno */
     display: flex;
     align-items: center;
-    gap: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    color: white;
+    gap: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    color: #000; /* Texto PRETO para máximo contraste */
 }
 
 .currency-bar {
-    gap: 30px;
+    gap: 20px;
 }
 
 .currency-mini {
-    font-weight: 700;
-    font-size: 18px;
+    font-weight: 800;
+    font-size: 16px;
+    color: #000;
 }
 
 .currency-mini span {
-    color: var(--accent-color);
-    margin-left: 5px;
+    color: #0084ff; /* Azul vibrante para contraste no fundo claro */
+    margin-left: 4px;
 }
 
 .clock-widget {
-    text-align: right;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
+    flex-direction: row;
+    gap: 15px;
 }
 
 #clock {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 800;
-    font-variant-numeric: tabular-nums;
+    color: #000;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    padding-right: 15px;
+}
+
+#date {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
 }
 
 .weather-mini {
-    margin-left: auto;
+    font-weight: 700;
+    color: #000;
 }
 
 /* Animations */
@@ -255,53 +263,29 @@ button:hover {
         top: 10px;
         left: 10px;
         right: 10px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
+        flex-direction: column;
+        gap: 6px;
     }
 
     .glass-widget {
-        background: rgba(255, 255, 255, 0.2); /* Mais claro no celular */
-        backdrop-filter: blur(8px);
-        padding: 6px 12px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: none;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 6px 15px;
+        border-radius: 30px;
+        width: 100%;
+        justify-content: center;
     }
 
     .currency-bar {
-        order: 2;
-        gap: 12px;
-    }
-
-    .currency-mini {
-        font-size: 12px;
-    }
-
-    .clock-widget {
-        order: 1;
-        align-items: center;
-        text-align: center;
-        padding: 4px 12px;
+        gap: 15px;
     }
 
     #clock {
-        font-size: 18px;
+        font-size: 16px;
+        padding-right: 10px;
     }
 
-    .weather-mini {
-        order: 3;
-        margin-left: 0;
-        gap: 8px;
-    }
-
-    #weather-icon {
-        width: 30px !important;
-    }
-
-    #weather-temp {
-        font-size: 14px;
+    #date {
+        font-size: 10px;
     }
 
     .news-title {
@@ -310,10 +294,9 @@ button:hover {
 
     .news-summary {
         font-size: 16px;
-        -webkit-line-clamp: 3;
     }
 
     .news-overlay {
-        padding: 30px 15px 30px;
+        padding: 20px 15px 40px;
     }
 }
