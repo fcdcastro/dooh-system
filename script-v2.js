@@ -101,26 +101,31 @@ async function showBriefing() {
     const highlights = newsItems.slice(0, 5);
     briefingList.innerHTML = '';
     
-    highlights.forEach(item => {
+    let newsText = "Bom dia! Iniciando o sistema. Aqui estão os destaques das últimas notícias. ";
+    
+    highlights.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'briefing-item';
         div.textContent = item.title;
         briefingList.appendChild(div);
+        
+        // Adiciona à narração
+        newsText += `${index + 1}: ${item.title}. `;
     });
 
     briefingOverlay.style.display = 'flex';
     briefingOverlay.style.opacity = '1';
 
-    // Locução de Boas-vindas (Tenta falar, se o mobile bloquear, o visual continua)
+    // Locução de todas as notícias
     try {
-        const welcomeText = "Bom dia! Aqui estão os destaques das últimas notícias.";
-        const utterance = new SpeechSynthesisUtterance(welcomeText);
+        const utterance = new SpeechSynthesisUtterance(newsText);
         utterance.lang = 'pt-BR';
         utterance.voice = voices[0];
         utterance.rate = 1.0;
         window.speechSynthesis.speak(utterance);
     } catch(e) {}
 
+    // Aguardar 25 segundos para dar tempo de ler as 5 manchetes
     return new Promise(resolve => {
         setTimeout(() => {
             briefingOverlay.style.opacity = '0';
@@ -128,7 +133,7 @@ async function showBriefing() {
                 briefingOverlay.style.display = 'none';
                 resolve();
             }, 800);
-        }, 20000);
+        }, 25000);
     });
 }
 
