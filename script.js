@@ -51,49 +51,52 @@ async function init() {
 }
 
 function toggleSpeech() {
-    if (synth.speaking) {
-        synth.cancel();
-        btnSpeak.classList.remove('speaking');
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        updateSpeechUI(false);
         return;
     }
 
-    // Tenta carregar as vozes primeiro
-    let voices = synth.getVoices();
-    
-    const textToRead = `${newsTitle.textContent}. ${newsSummary.textContent}. Fonte: ${newsSource.textContent}`;
-    const utterance = new SpeechSynthesisUtterance(textToRead);
-    
-    // Seleciona a melhor voz em português disponível
-    const ptVoice = voices.find(v => v.lang.includes('pt-BR')) || 
-                    voices.find(v => v.lang.includes('pt')) || 
-                    voices[0];
-                    
-    if (ptVoice) utterance.voice = ptVoice;
+    const text = `${newsTitle.textContent}. ${newsSummary.textContent}. Fonte: ${newsSource.textContent}`;
+    const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'pt-BR';
     utterance.rate = 1.0;
     
-    utterance.onstart = () => btnSpeak.classList.add('speaking');
-    utterance.onend = () => btnSpeak.classList.remove('speaking');
-    utterance.onerror = () => btnSpeak.classList.remove('speaking');
+    // Tenta carregar vozes para Chrome/Android
+    const voices = window.speechSynthesis.getVoices();
+    const ptVoice = voices.find(v => v.lang.includes('pt-BR')) || voices.find(v => v.lang.includes('pt'));
+    if (ptVoice) utterance.voice = ptVoice;
 
-    synth.cancel(); // Garante que não haja nada na fila
-    
-    // Pequeno delay para alguns navegadores processarem o cancel()
-    setTimeout(() => {
-        synth.speak(utterance);
-    }, 100);
+    utterance.onstart = () => updateSpeechUI(true);
+    utterance.onend = () => updateSpeechUI(false);
+    utterance.onerror = (e) => {
+        console.error('Erro na fala:', e);
+        updateSpeechUI(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
 }
 
-// Escuta quando as vozes são carregadas (especialmente para Chrome/Android)
-if (window.speechSynthesis.onvoiceschanged !== undefined) {
-    window.speechSynthesis.onvoiceschanged = () => synth.getVoices();
+function updateSpeechUI(isSpeaking) {
+    const btn = document.getElementById('btn-speak');
+    const status = document.getElementById('speech-status');
+    if (isSpeaking) {
+        btn.classList.add('speaking');
+        if (status) status.style.display = 'inline';
+    } else {
+        btn.classList.remove('speaking');
+        if (status) status.style.display = 'none';
+    }
 }
 
 function stopSpeech() {
-    if (synth.speaking) {
-        synth.cancel();
-        btnSpeak.classList.remove('speaking');
-    }
+    window.speechSynthesis.cancel();
+    updateSpeechUI(false);
+}
+
+// Escuta mudança de vozes
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
 // --- Data Fetching ---

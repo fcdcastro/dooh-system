@@ -50,9 +50,10 @@
             <div class="news-overlay">
                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
                     <span class="news-source" id="news-source" style="margin-bottom: 0;">Carregando...</span>
-                    <button id="btn-speak" class="icon-button" title="Ouvir Notícia">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <button id="btn-speak" class="icon-button" title="Ouvir Notícia" style="background: #fff; color: #000; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); width: 50px; height: 50px;">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     </button>
+                    <span id="speech-status" style="font-size: 12px; font-weight: 800; color: var(--accent-color); display: none; text-transform: uppercase; letter-spacing: 1px;">• Falando</span>
                 </div>
                 <h1 class="news-title" id="news-title">Buscando as últimas notícias...</h1>
                 <p class="news-summary" id="news-summary">Aguarde um momento enquanto atualizamos as informações.</p>
