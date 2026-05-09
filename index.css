@@ -246,23 +246,29 @@ body {
 
 /* Buttons & UI Elements */
 .icon-button {
-    background: #fff;
+    background: var(--accent-color);
     border: none;
     color: #000;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-smooth);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px var(--accent-glow);
+    z-index: 10;
 }
 
 .icon-button:hover {
     transform: scale(1.1);
-    background: var(--accent-color);
+    filter: brightness(1.2);
+}
+
+.icon-button svg {
+    width: 32px;
+    height: 32px;
 }
 
 .icon-button.speaking {
