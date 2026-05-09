@@ -114,7 +114,6 @@ async function refreshNews() {
     
     for (const source of settings.sourceUrls) {
         try {
-            // Using rss2json as a proxy to avoid CORS
             const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}`;
             const response = await fetch(proxyUrl);
             const data = await response.json();
@@ -125,7 +124,8 @@ async function refreshNews() {
                         title: item.title,
                         summary: cleanHTML(item.description || item.content),
                         source: source.name,
-                        image: item.enclosure?.link || item.thumbnail || extractImg(item.content) || `https://picsum.photos/seed/${Math.random()}/1200/800`
+                        image: item.enclosure?.link || item.thumbnail || extractImg(item.content) || `https://picsum.photos/seed/${Math.random()}/1200/800`,
+                        date: new Date(item.pubDate || Date.now()) // Captura a data
                     });
                 });
             }
@@ -135,7 +135,12 @@ async function refreshNews() {
     }
 
     if (allNews.length > 0) {
-        newsItems = shuffleArray(allNews);
+        // Ordena por data (mais recente primeiro)
+        allNews.sort((a, b) => b.date - a.date);
+        
+        // Limita a 50 notícias para manter o sistema leve e atual
+        newsItems = allNews.slice(0, 50);
+        
         if (newsItems.length > 0) startCycling();
     }
 }
