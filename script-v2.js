@@ -4,7 +4,7 @@ const HARDCODED_WEATHER_KEY = '70ade7bd675907645ae4a62fe903f525';
 // Configuration State
 let settings = JSON.parse(localStorage.getItem('dooh_settings')) || {
     interval: 15,
-    weatherCity: 'Sao Paulo',
+    weatherCity: 'Rio de Janeiro',
     weatherKey: HARDCODED_WEATHER_KEY,
     activeSources: ['g1-brasil', 'cnn-br'],
     sourceUrls: [
@@ -166,31 +166,21 @@ async function fetchWeather() {
     const apiKey = settings.weatherKey || HARDCODED_WEATHER_KEY;
     if (!apiKey) return;
 
-    const updateUI = async (url) => {
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.cod === 200) {
-                document.getElementById('weather-city').textContent = data.name;
-                document.getElementById('weather-temp').textContent = `${Math.round(data.main.temp)}°C`;
-                document.getElementById('weather-desc').textContent = data.weather[0].description;
-                const iconEl = document.getElementById('weather-icon');
-                iconEl.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-                iconEl.style.display = 'block';
-            }
-        } catch (e) { console.error('Erro clima:', e); }
-    };
+    const city = settings.weatherCity || 'Rio de Janeiro';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&lang=pt_br&appid=${apiKey}`;
 
-    navigator.geolocation.getCurrentPosition(
-        pos => {
-            const { latitude, longitude } = pos.coords;
-            updateUI(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=pt_br&appid=${apiKey}`);
-        },
-        () => {
-            updateUI(`https://api.openweathermap.org/data/2.5/weather?q=${settings.weatherCity}&units=metric&lang=pt_br&appid=${apiKey}`);
-        },
-        { timeout: 4000 }
-    );
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.cod === 200) {
+            document.getElementById('weather-city').textContent = data.name;
+            document.getElementById('weather-temp').textContent = `${Math.round(data.main.temp)}°C`;
+            document.getElementById('weather-desc').textContent = data.weather[0].description;
+            const iconEl = document.getElementById('weather-icon');
+            iconEl.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+            iconEl.style.display = 'block';
+        }
+    } catch (e) { console.error('Erro clima:', e); }
 }
 
 async function refreshNews() {

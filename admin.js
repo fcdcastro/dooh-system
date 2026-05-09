@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let settings = JSON.parse(localStorage.getItem('dooh_settings')) || {
         interval: 15,
-        weatherCity: 'Sao Paulo',
+        weatherCity: 'Rio de Janeiro',
         weatherKey: HARDCODED_WEATHER_KEY,
         activeSources: DEFAULT_SOURCES.map(s => s.id),
         customSources: [],
