@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOOH News - Brasil & Mundo</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main News Content -->
+        <main class="news-display" id="news-container">
+            <img src="" alt="" class="news-image" id="news-img">
+            <div class="news-overlay">
+                <span class="news-source" id="news-source">Carregando...</span>
+                <h1 class="news-title" id="news-title">Buscando as últimas notícias...</h1>
+                <p class="news-summary" id="news-summary">Aguarde um momento enquanto atualizamos as informações.</p>
+            </div>
+            <div class="progress-container" id="progress-bar"></div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Weather Widget -->
+            <div class="sidebar-card weather-widget">
+                <span class="weather-city" id="weather-city">São Paulo</span>
+                <img id="weather-icon" src="" alt="" style="width: 100px; height: 100px; filter: drop-shadow(0 0 10px var(--accent-color)); display: none;">
+                <div class="weather-temp" id="weather-temp">--°</div>
+                <div id="weather-desc">Céu limpo</div>
+            </div>
+
+            <!-- Currency Widget -->
+            <div class="sidebar-card currency-widget">
+                <h3>Câmbio em Tempo Real</h3>
+                <div class="currency-item">
+                    <span class="currency-label">USD - Dólar</span>
+                    <span class="currency-value" id="usd-rate">R$ 0,00</span>
+                </div>
+                <div class="currency-item">
+                    <span class="currency-label">EUR - Euro</span>
+                    <span class="currency-value" id="eur-rate">R$ 0,00</span>
+                </div>
+            </div>
+
+            <!-- Time Widget -->
+            <div class="sidebar-card" style="text-align: center;">
+                <div id="clock" style="font-size: 32px; font-weight: 700;">00:00:00</div>
+                <div id="date" style="color: var(--text-secondary); font-size: 14px;">--/--/----</div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
