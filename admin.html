@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações DOOH</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body class="admin-body">
+    <h1 style="margin-bottom: 30px;">Painel de Configuração DOOH</h1>
+
+    <div class="admin-card">
+        <h2>Configurações de Exibição</h2>
+        <div class="form-group">
+            <label>Intervalo entre Notícias (segundos)</label>
+            <input type="number" id="news-interval" value="15" min="5">
+        </div>
+        <div class="form-group">
+            <label>Cidade para Previsão do Tempo</label>
+            <input type="text" id="weather-city-input" value="Sao Paulo">
+        </div>
+        <div class="form-group">
+            <label>OpenWeather API Key (Opcional)</label>
+            <input type="text" id="weather-api-key" placeholder="Insira sua chave API">
+        </div>
+    </div>
+
+    <div class="admin-card">
+        <h2>Fontes de Notícias</h2>
+        <p style="margin-bottom: 15px; color: var(--text-secondary);">Selecione as fontes que deseja exibir no seu
+            painel.</p>
+        <div id="sources-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <!-- Will be populated by JS -->
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        <button id="save-settings">Salvar Configurações</button>
+        <button id="view-player"
+            style="background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color);">Abrir
+            Player</button>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
