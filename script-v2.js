@@ -45,10 +45,13 @@ async function init() {
         clearTimeout(loadTimeout);
         hideLoading();
         
-        // Iniciar Briefing se houver notícias
-        if (newsItems.length > 0) {
-            await showBriefing();
-        }
+        // Pequeno atraso para garantir que o overlay de loading saiu (importante no mobile)
+        setTimeout(async () => {
+            if (newsItems.length > 0) {
+                await showBriefing();
+            }
+        }, 600);
+
     } catch (e) {
         console.error('Erro no carregamento inicial:', e);
         hideLoading();
@@ -65,12 +68,36 @@ async function init() {
     }
 }
 
+function hideLoading() {
+    if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => loadingOverlay.style.display = 'none', 500);
+    }
+}
+
+function loadVoices() {
+    // Prioridade para vozes naturais e de alta qualidade
+    const allVoices = window.speechSynthesis.getVoices();
+    // Procura por vozes Google ou Microsoft que soam melhor
+    voices = allVoices.filter(v => v.lang.includes('pt-BR'));
+    
+    // Tenta encontrar uma voz específica conhecida por ser boa
+    const premiumVoice = voices.find(v => v.name.includes('Google')) || 
+                        voices.find(v => v.name.includes('Maria')) ||
+                        voices.find(v => v.name.includes('Heloisa')) ||
+                        voices[0];
+    
+    if (premiumVoice) {
+        // Coloca a melhor voz no topo
+        voices = [premiumVoice, ...voices.filter(v => v !== premiumVoice)];
+    }
+}
+
 async function showBriefing() {
     const briefingOverlay = document.getElementById('briefing-overlay');
     const briefingList = document.getElementById('briefing-list');
     if (!briefingOverlay || !briefingList) return;
 
-    // Pegar as 5 notícias mais recentes
     const highlights = newsItems.slice(0, 5);
     briefingList.innerHTML = '';
     
@@ -84,14 +111,16 @@ async function showBriefing() {
     briefingOverlay.style.display = 'flex';
     briefingOverlay.style.opacity = '1';
 
-    // Locução de Boas-vindas
-    const welcomeText = "Bom dia! Iniciando o sistema. Aqui estão os destaques das últimas notícias.";
-    const utterance = new SpeechSynthesisUtterance(welcomeText);
-    utterance.lang = 'pt-BR';
-    utterance.rate = 1.0;
-    window.speechSynthesis.speak(utterance);
+    // Locução de Boas-vindas (Tenta falar, se o mobile bloquear, o visual continua)
+    try {
+        const welcomeText = "Bom dia! Aqui estão os destaques das últimas notícias.";
+        const utterance = new SpeechSynthesisUtterance(welcomeText);
+        utterance.lang = 'pt-BR';
+        utterance.voice = voices[0];
+        utterance.rate = 1.0;
+        window.speechSynthesis.speak(utterance);
+    } catch(e) {}
 
-    // Aguardar 20 segundos e fechar
     return new Promise(resolve => {
         setTimeout(() => {
             briefingOverlay.style.opacity = '0';
@@ -103,17 +132,6 @@ async function showBriefing() {
     });
 }
 
-function hideLoading() {
-    if (loadingOverlay && loadingOverlay.style.display !== 'none') {
-        loadingOverlay.style.opacity = '0';
-        setTimeout(() => loadingOverlay.style.display = 'none', 500);
-    }
-}
-
-function loadVoices() {
-    voices = window.speechSynthesis.getVoices();
-}
-
 function toggleSpeech() {
     if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
@@ -123,13 +141,13 @@ function toggleSpeech() {
     if (newsItems.length === 0) return;
 
     const item = newsItems[currentIndex];
-    const text = item.title; 
+    // Ao clicar manualmente, lê o título E o resumo completo
+    const text = `${item.title}. Detalhes: ${item.summary}`; 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'pt-BR';
-    utterance.rate = 1.0;
+    utterance.rate = 0.95; // Um pouco mais lento para soar mais natural
     
-    const ptVoice = voices.find(v => v.lang.includes('pt-BR')) || voices.find(v => v.lang.includes('pt'));
-    if (ptVoice) utterance.voice = ptVoice;
+    if (voices[0]) utterance.voice = voices[0];
 
     utterance.onstart = () => updateSpeechUI(true);
     utterance.onend = () => updateSpeechUI(false);
