@@ -244,45 +244,6 @@ body {
     transition: width 0.1s linear;
 }
 
-/* Buttons & UI Elements */
-.icon-button {
-    background: var(--accent-color);
-    border: none;
-    color: #000;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    box-shadow: 0 10px 25px var(--accent-glow);
-    z-index: 10;
-}
-
-.icon-button:hover {
-    transform: scale(1.1);
-    filter: brightness(1.2);
-}
-
-.icon-button svg {
-    width: 32px;
-    height: 32px;
-}
-
-.icon-button.speaking {
-    background: #ff3333;
-    color: #fff;
-    animation: pulseGlow 1.5s infinite;
-}
-
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
-    70% { box-shadow: 0 0 0 20px rgba(255, 51, 51, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
-}
-
 /* Admin Styles */
 .admin-body {
     background-color: var(--bg-color);
@@ -423,7 +384,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+    background:
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
+        url('https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=1920&q=80') center/cover no-repeat;
     z-index: 900;
     display: flex;
     align-items: center;
@@ -437,13 +400,24 @@ body {
 }
 
 .briefing-tag {
-    font-size: 14px;
+    font-size: clamp(28px, 4vw, 52px);
     font-weight: 800;
-    color: var(--accent-color);
+    color: #fff;
     text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 40px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
     text-align: center;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+}
+
+.briefing-subtitle {
+    font-size: clamp(14px, 1.5vw, 20px);
+    color: var(--accent-color);
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .briefing-list {
@@ -481,6 +455,7 @@ body {
     .top-widgets { height: 60px; padding: 0 20px; }
     .briefing-overlay { padding: 30px; }
     .briefing-item { font-size: 22px; }
+    .briefing-tag { font-size: 28px; letter-spacing: 2px; }
 }
 
 @media (max-width: 600px) {
@@ -492,5 +467,10 @@ body {
     #clock { font-size: 24px; }
     #date { font-size: 10px; }
     .currency-item span { font-size: 16px; }
+    .briefing-overlay { padding: 20px; }
+    .briefing-tag { font-size: 22px; letter-spacing: 1px; }
+    .briefing-subtitle { font-size: 12px; margin-bottom: 20px; }
+    .briefing-item { font-size: 16px; padding-left: 15px; }
+    .briefing-list { gap: 12px; }
 }
 
